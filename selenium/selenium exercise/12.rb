@@ -13,4 +13,5 @@ src_of_image = img.attribute("src")
 driver.execute_script "window.scrollTo(0, document.body.scrollHeight)"
 driver.execute_script "window.scrollTo(0, document.body.scrollHeight)"
 img.click
+
 driver.quit
