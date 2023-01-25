@@ -82,6 +82,10 @@ class Web_framework
     end
     return false
   end
+  def get_window_size
+    return @driver.manage.window.size
+  end
+
 
 end
 
