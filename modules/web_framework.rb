@@ -12,36 +12,64 @@ class Web_framework
     @driver.get(url)
   end
   def click_element(element)
-    element.click
+    begin
+      return element.click
+    rescue
+      return "null element"
+    end
+
   end
   def find_elements(element)
-    return @driver.find_elements(element)
+    begin
+      return @driver.find_elements(element)
+    rescue
+      return nil
+    end
   end
+
   def find_element(element)
-    return @driver.find_element(element)
+    begin
+      return @driver.find_element(element)
+    rescue
+      return nil
+    end
   end
+
   def wait(time)
-    sleep(time)
+    if(time.is_a?Integer)
+      sleep(time)
+    else
+      return "enter a number"
+    end
   end
+
   def write_to_element(element,text)
       element.send_keys(text)
   end
+
   def press_key(key)
     @driver.action.key_down(key)
   end
+
   def get_page_title()
     # get the title using @url
     return @driver.title
   end
+
   def maximize_window()
     @driver.manage.window.maximize
   end
+
   def get_element_text(element)
     return element.text
   end
+
   def select_item_from_dopdown(dropdown,index)
-    return dropdown.find_elements(:tag_name,"option")[index].click
+    option = dropdown.find_elements(:tag_name,"option")[index]
+    option.click
+    return option
   end
+
   def switch_window(index)
     @driver.switch_to.window(@driver.window_handles[index])
   end
