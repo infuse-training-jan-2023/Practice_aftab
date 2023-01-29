@@ -29,6 +29,9 @@ end
 def take_average(num1,num2)
     return (num1+ num2).round(2)/2
 end
+def is_even(number)
+    number%2==0?true:false
+end
 
 element = "009-10.00-20.00"
 extract(element)
