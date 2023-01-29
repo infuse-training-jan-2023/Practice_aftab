@@ -21,4 +21,7 @@ class Testing < Test::Unit::TestCase
     serial_no = "099-15.00-90.00"
     assert_not_nil(extract(serial_no))
   end
+  def test_is_even
+    assert_equal(true,is_even(3))
+  end
 end
