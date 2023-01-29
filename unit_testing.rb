@@ -1,4 +1,4 @@
-require "problem1.rb"
+require "./problem1.rb"
 require "test/unit"
 require 'json'
 
