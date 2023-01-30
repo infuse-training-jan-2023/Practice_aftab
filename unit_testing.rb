@@ -22,6 +22,6 @@ class Testing < Test::Unit::TestCase
     assert_not_nil(extract(serial_no))
   end
   def test_is_even
-    assert_equal(true,is_even(3))
+    assert_equal(true,is_even(4))
   end
 end
