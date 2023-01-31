@@ -6,7 +6,7 @@ class Subscription
   end
   def subscribe(url,email)
     @driver.get_webpage(url)
-    @driver.maximize_window
+    # @driver.maximize_window
     signin_btn = @driver.find_elements({:class=>'select-signin'})
 
     if(signin_btn)
@@ -17,7 +17,7 @@ class Subscription
       @driver.wait(3)
       sub_btn = @driver.find_elements({:xpath=>'//*[@id="collage-footer"]/footer/div[2]/div/form/div[2]/div/button'})[0]
       @driver.click_element(sub_btn)
-      @driver.wait(3)
+      @driver.wait(4)
     else
       puts "logged in"
     end

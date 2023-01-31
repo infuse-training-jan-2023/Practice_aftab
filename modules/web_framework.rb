@@ -90,6 +90,17 @@ class Web_framework
   def get_window_size
     return @driver.manage.window.size
   end
+  def close_browser
+    return @driver.quit
+  end
+  def get_screenshot()
+    @driver.save_screenshot("screenshot.png")
+  end
+  def scroll_down
+    @driver.execute_script "window.scrollTo(0, document.body.scrollHeight)"
+  end
+
+
 
 
 end

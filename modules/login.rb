@@ -16,9 +16,7 @@ class Login
     end
   end
   def login(username,password)
-    @driver.maximize_window
-    # signin_btn = @driver.find_element({:class=>'wt-btn'})
-    # signin_btn.click
+    # @driver.maximize_window
     signin = @driver.find_element({:class=>'select-signin'})
     @driver.click_element(signin)
     @driver.wait(3)
@@ -27,17 +25,10 @@ class Login
     passworde = @driver.find_element({:id=>'join_neu_password_field'})
     @driver.write_to_element(passworde,password)
     @driver.wait(3)
-    signinb = @driver.find_element({:xpath=>'//*[@id="join-neu-form"]/div[1]/div/div[7]/div/button'})
+    signinb = @driver.find_elements({:class=>'wt-btn--primary'})[4]
     @driver.click_element(signinb)
-    @driver.wait(3)
-  end
-  def logout()
-    if(login_status=="logged_in")
-      account_ico = @driver.find_element({:xpath=>'//*[@id="gnav-header-inner"]/div[3]/nav/ul/li[3]/div/button/span[1]/img'})
-      @driver.click_element(account_ico)
-      logout_btn = @driver.find_element({:xpath=>'//*[@id="gnav-header-inner"]/div[3]/nav/ul/li[3]/div/div/ul/li[7]/a/div[1]/span'})
-      @driver.click_element(logout_btn)
-    end
+    @driver.wait(4)
+    @driver.close_browser()
   end
   def login_status
     @login_status
