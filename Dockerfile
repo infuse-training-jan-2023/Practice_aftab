@@ -16,7 +16,7 @@ apt-get -yqq update && \
 apt-get -yqq install google-chrome-stable && \
 rm -rf /var/lib/apt/lists/*
 ENV driver='/usr/local/bin/chromedriver'
-# FROM base as test
-# CMD ruby ./testing/testing.rb
+FROM base as test
+CMD ruby ./testing/testing.rb
 FROM base as we_automation
 CMD ruby ./modules/test.rb
