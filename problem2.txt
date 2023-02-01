@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                bat 'mkdir file'
+                bat 'echo content >> file/file.txt'
+            }
+        }
+    }
+}
