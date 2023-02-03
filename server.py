@@ -71,4 +71,4 @@ def save_to_csv():
     return Crud.save_to_csv()
 
 if __name__ == '__main__':
-    app.run(debug=True,host = '127.0.0.1',port = 4000)
+    app.run(debug=True,host = '0.0.0.0',port = 4000)
