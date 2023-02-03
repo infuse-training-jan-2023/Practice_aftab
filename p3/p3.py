@@ -6,6 +6,6 @@ def validate_input(data):
         response = requests.get(url)
         return response.json()
     else:
-        return "input number between 1 and 200"
+        return "input a number between 1 and 200"
 
 

@@ -1,8 +1,8 @@
 from flask import Flask,Response,request
-from p1 import validate_email
-from p2 import validate_password
-from p3 import validate_input
-from p4 import Crud
+from p1.p1 import validate_email
+from p2.p2 import validate_password
+from p3.p3 import validate_input
+from p4.p4 import Crud
 import json
 
 app = Flask(__name__)
@@ -65,6 +65,10 @@ def register_user():
         return Crud.register_user(json_data)
     else:
         return 'Content-Type not supported!'
+# write rows to csv
+@app.route('/item/csv', methods=['POST'])
+def save_to_csv():
+    return Crud.save_to_csv()
 
 if __name__ == '__main__':
     app.run(debug=True,host = '127.0.0.1',port = 4000)

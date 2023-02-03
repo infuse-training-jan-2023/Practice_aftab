@@ -1,4 +1,5 @@
 import sqlite3
+from p4.save_to_csv import save_to_csv
 
 class Crud:
     DBPATH = 'todo.db'
@@ -39,16 +40,21 @@ class Crud:
         except Exception as e:
             return e
     def register_user(self,data):
-        try:
-            name = data['name']
-            phone_number = data['phone_number']
-            conn = Crud.connect_db()
-            cursor = conn.cursor()
-            result = cursor.execute('insert into user (name,address) values(?,?)',(name,phone_number))
-            conn.commit()
-            return "user added successfully"
-        except Exception as e:
-            return e
+        name = data['name']
+        phone_number = data['phone_number']
+        conn = Crud.connect_db()
+        cursor = conn.cursor()
+        result = cursor.execute('insert into user(name,phone_number) values(?,?)',(name,phone_number))
+        conn.commit()
+        return "user added successfully"
+    def save_to_csv(self):
+        conn = Crud.connect_db()
+        cursor = conn.cursor()
+        result = cursor.execute('select * from todo')
+        save_to_csv(result)
+        conn.commit()
+        return "saved to csv"
+
 
 
 

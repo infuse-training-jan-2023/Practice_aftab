@@ -3,11 +3,12 @@ CREATE TABLE 'todo'(
     "name" TEXT NOT NULL,
     "reminder" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL
-)
+);
+
 
 CREATE TABLE 'user'(
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "phone_number" INTEGER NOT NULL
-)
+);
 
