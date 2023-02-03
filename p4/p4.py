@@ -28,17 +28,13 @@ class Crud:
         except Exception as e:
             return e
     def update_item(self,id,data):
-        try:
-            name = data['name']
-            reminder = data['reminder']
-            status = data['status']
-            conn = Crud.connect_db()
-            cursor = conn.cursor()
-            result = cursor.execute('UPDATE todo SET name=?,reminder=?,status=? WHERE id = ?',(name,reminder,status,id))
-            conn.commit()
-            return 'item updated successfully'
-        except Exception as e:
-            return e
+        conn = Crud.connect_db()
+        cursor = conn.cursor()
+        keys = data.keys()
+        for key in keys:
+            cursor.execute('update todo set {}=? where id = ?'.format(key),(data[key],id))
+        conn.commit()
+        return 'item updated successfully'
     def register_user(self,data):
         name = data['name']
         phone_number = data['phone_number']
