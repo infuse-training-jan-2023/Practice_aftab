@@ -1,0 +1,6 @@
+CREATE TABLE 'todo'(
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    'name' TEXT NOT NULL,
+    'reminder' TEXT NOT NULL
+    'status' BOOLEAN NOT NULL
+)
