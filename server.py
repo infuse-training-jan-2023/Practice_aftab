@@ -2,6 +2,7 @@ from flask import Flask,Response,request
 from p1 import validate_email
 from p2 import validate_password
 from p3 import validate_input
+from p4 import Crud
 import json
 
 app = Flask(__name__)
@@ -29,9 +30,41 @@ def input_validation():
         return validate_input(json_data)
     else:
         return 'Content-Type not supported!'
-# @app.route('/delete/<item_id>', methods=['GET','POST'])
-# def delete_item_inventory(item_id):
-#     return actions.delete_item_action(item_id)
+
+
+# exercise 4 todo database
+# ADD ITEM
+Crud = Crud()
+@app.route('/item', methods=['POST'])
+def add_item():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json_data = request.json
+        return Crud.add_item(json_data)
+    else:
+        return 'Content-Type not supported!'
+# DELETE ITEM
+@app.route('/item/<id>', methods=['POST'])
+def delete_item(id):
+    return Crud.delete_item(id)
+# UPDATE ITEM
+@app.route('/item/<id>', methods=['PUT'])
+def update_item(id):
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json_data = request.json
+        return Crud.update_item(id,json_data)
+    else:
+        return 'Content-Type not supported!'
+# register a user
+@app.route('/user', methods=['POST'])
+def register_user():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json_data = request.json
+        return Crud.register_user(json_data)
+    else:
+        return 'Content-Type not supported!'
 
 if __name__ == '__main__':
     app.run(debug=True,host = '127.0.0.1',port = 4000)
