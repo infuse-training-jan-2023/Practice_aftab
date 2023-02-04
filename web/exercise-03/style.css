@@ -2,6 +2,7 @@
   margin: 0;
   box-sizing: border-box;
   overflow: hidden;
+  text-transform: capitalize;
 }
 
 .container {
@@ -51,7 +52,13 @@ aside {
   color: #56A9C7;
 }
 ul li {
-  font-size: 25px;
+  font-size: 30px;
+}
+.test-data > span:first-child {
+  color: white;
+  background-color: black;
+  padding: 4px;
+
 }
 nav {
   display: flex;
@@ -84,13 +91,14 @@ nav ul li {
   column-gap: 10px;
   width: 100%;
   align-items: center;
+  cursor: pointer;
 
 }
 nav ul li i {
   margin-left: 10px;
 }
 nav ul li:hover{
-  background-color: #56A9C7;
+  background-color: #cbd9de;
 
 }
 .um-navitems__main~li{
@@ -128,7 +136,13 @@ nav ul li:hover{
 }
 .um-test-name{
   font-size: 20px;
-  color: white
+}
+.test-data .bi-pencil-square,.bi-x{
+  color: white;
+}
+li .bi-pencil-square{
+  font-size: 20px;
+  color: #56A9C7;
 }
 
 main{
@@ -136,6 +150,9 @@ main{
 }
 
 /* test properties */
+.test-properties{
+  background-color: white;
+}
 .test-properties span{
   display: inline-flex;
   background-color: #478BA3;
@@ -144,11 +161,15 @@ main{
   font-size: 20px;
 }
 
+
 /* form properties */
 .form-properties{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+.details {
+  width: -webkit-fill-available;
 }
 .details label{
   margin-left:3px;
@@ -162,9 +183,7 @@ main{
   color: #2a5394;
   border: none;
 }
-.details select option{
 
-}
 #text_area{
   background-color: rgb(236, 233, 233);
 
@@ -178,7 +197,16 @@ form div label{
 .description{
   display: flex;
   flex-direction: row;
-
+  width: 80%;
+  margin-bottom: 4px;
+}
+.description textarea{
+  background-color: rgb(238, 233, 233);
+  width: 97%;
+}
+.description label{
+  margin-right: 10px;
+  overflow: visible;
 }
 
 
@@ -216,6 +244,7 @@ form div label{
   flex-grow: 0;
   padding: 0px;
   height: 100%;
+  background-color: black ;
 }
 .options{
   font-size: 20px;
@@ -231,13 +260,12 @@ div.bi{
 
 /* test area */
 .test-data{
-  background-color: white;
+  background-color: rgb(7, 99, 161);
 }
 
 .test{
   margin-left: 15px;
   box-shadow: 0 10px 8px 15px rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-  text-align: center;
   background-color: #f1f1f1;
   height: 98vh;
 }
@@ -245,11 +273,19 @@ div.bi{
   height: 37%;
   width: 400px;
   border: 1px solid rgb(7, 99, 161);
+  background-color: white;
+}
+.test-variables>span,.test-parameters>span {
+  color: white;
+  display: block;
+  /* width: max-content; */
+  background-color: #276ea1;
 }
 .test-parameters{
   height: 50%;
   width: 400px;
   border: 1px solid rgb(7, 99, 161);
+  background-color: white;
 
 }
 .variable_text{
@@ -276,7 +312,8 @@ div.bi{
 
 }
 .bi-x{
-  margin-left: auto;
+  position: absolute;
+  right: 0px;
 
 }
 
@@ -303,4 +340,8 @@ div.bi{
 .table-header-variables span{
   font-weight: bold;
   color:#276ea1;
+}
+span{
+  font-weight: bold;
+  font-size: 20px;
 }

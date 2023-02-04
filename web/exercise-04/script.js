@@ -11,8 +11,8 @@ const user = {
 
 const printUserProfile = ({name,designation, company,hobbies}) => {
     // Piyush Sharma is a Senior Software Engineer at Infuse Consulting. He likes Reading, Listening to music and Collecting stamps
-    result = name+"is a"+designation+"at"+company+"."+"He likes"
-    hobbies.forEach(hobby => result=result+", "+hobby)
+    result = name+"is a "+designation+" at "+company+". "+"He likes"
+    hobbies.forEach(hobby => hobbies.indexOf(hobby)==hobbies.length-1?result=result+" and "+hobby :result=result+", "+hobby)
     console.log(result)
 
 }

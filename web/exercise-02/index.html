@@ -20,16 +20,19 @@
         </p>
     </div>
     <script>
-        var hour_element = document.getElementById("hour")
-        var minute_element = document.getElementById("minute")
-        var second_element = document.getElementById("second")
+        const hour_element = document.getElementById("hour")
+        const minute_element = document.getElementById("minute")
+        const second_element = document.getElementById("second")
         setInterval(()=>{
-            hours = String(new Date().getHours())
-            minute = String(new Date().getMinutes())
-            second = String(new Date().getSeconds())
-            hour_element.innerHTML = hours+":"
-            minute_element.innerHTML = minute+":"
-            second_element.innerHTML = second
+            hour = new Date().getHours()
+            new_hour = hour<10?"0"+String(hour):String(hour)
+            minute = new Date().getMinutes()
+            new_minute = minute<10?"0"+String(minute):String(minute)
+            second = new Date().getSeconds()
+            new_second = second<10?"0"+String(second):String(second)
+            hour_element.innerHTML = new_hour+":"
+            minute_element.innerHTML = new_minute+":"
+            second_element.innerHTML = new_second
         },700)
 
     </script>

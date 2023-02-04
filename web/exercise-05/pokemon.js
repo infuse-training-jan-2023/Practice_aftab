@@ -1,8 +1,3 @@
-
-var names = []
-var weights = []
-var base_experience = []
-var hp = []
 var back_ground_image;
 var container = document.getElementsByClassName("container")[0]
 var search_button = document.getElementsByClassName("search")[0]
@@ -94,8 +89,8 @@ function set_hover_effect(div,elements,url){
       console.log(res.status)
       return res.json()
     }).then((data)=>{
-      div.onmouseover = ()=>{elements[0].src = data["sprites"]["back_default"]}
-      div.onmouseout=()=>{elements[0].src = data["sprites"]["front_default"]}
+      elements[0].onmouseover = ()=>{elements[0].src = data["sprites"]["back_default"]}
+      elements[0].onmouseout=()=>{elements[0].src = data["sprites"]["front_default"]}
       div.getElementsByTagName("button")[0].onclick=()=>{change_iframe_content(data)}
 })
 }
@@ -130,7 +125,7 @@ function add_elements_to_div(div, elements, pokemon) {
     console.log(index)
     switch (index) {
       case 0:
-      //  setting the fron image and returnin the backgorund image
+      //  setting the front image and returnin the backgorund image
         set_element_data(element, pokemon.url, "sprites")
         break;
       case 1:
