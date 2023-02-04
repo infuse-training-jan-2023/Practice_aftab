@@ -1,13 +1,3 @@
-pipeline {
-     agent {
-        label 'slave1'
-    }
-    stages {
-        stage('Hello') {
-            steps {
-                bat 'mkdir file'
-                bat 'echo content >> file/file.txt'
-            }
-        }
-    }
-}
+mkdir directory
+cd directory
+echo random text > file.txt
