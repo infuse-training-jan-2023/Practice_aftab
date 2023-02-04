@@ -1,11 +1,15 @@
-require './driver.rb'
-def get_ith_column()
-  driver = Driver.new.get_driver
-  driver.get('https://cosmocode.io/automation-practice-webtable/')
-  row = driver.find_elements(:tag_name,'tr')
-  for row in row do
-    puts row.find_elements(:tag_name,'td')[3].text
+require_relative './driver.rb'
+class Get_column
+  def get_ith_column(url,index)
+    driver = Driver.new.get_driver
+    driver.get(url)
+    rows = driver.find_elements(:tag_name,'tr')
+    for row in rows do
+      puts row.find_elements(:tag_name,'td')[index].text
+    end
   end
 end
-get_ith_column()
+url = 'https://cosmocode.io/automation-practice-webtable/'
+index  = 3
+Get_column.new.get_ith_column(url,index)
 
