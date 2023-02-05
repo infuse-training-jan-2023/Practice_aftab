@@ -14,10 +14,10 @@ class Subscription
       sub_input = @driver.find_elements({:class=>'wt-input-btn-group__input'})[1]
       @driver.write_to_element(sub_input,email)
       puts email
-      @driver.wait(3)
+      @driver.wait(:explicit,3)
       sub_btn = @driver.find_elements({:xpath=>'//*[@id="collage-footer"]/footer/div[2]/div/form/div[2]/div/button'})[0]
       @driver.click_element(sub_btn)
-      @driver.wait(4)
+      @driver.wait(:explicit,4)
     else
       puts "logged in"
     end

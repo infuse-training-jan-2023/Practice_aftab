@@ -1,16 +1,11 @@
 
 require 'selenium-webdriver'
+require_relative './Driver.rb'
 
 class Web_framework
   @url = nil
   def initialize()
-    Selenium::WebDriver::Chrome::Service.driver_path=ENV['driver']
-    options = Selenium::WebDriver::Chrome::Options.new
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--window-size=1920,1080')
-        @driver = Selenium::WebDriver.for :chrome ,options: options
+  @driver = Driver.new.get_driver_with_options()
   end
   def get_webpage(url)
     @url = url
@@ -26,25 +21,38 @@ class Web_framework
   end
   def find_elements(element)
     begin
-      return @driver.find_elements(element)
-    rescue
-      return nil
+      elements = @driver.find_elements(element)
+      if(elements.length==0)
+        raise "no element found"
+      end
+      return elements
+    rescue => e
+      puts "Rescued: #{e.message}"
+      return "error"
     end
   end
 
   def find_element(element)
     begin
       return @driver.find_element(element)
-    rescue
-      return nil
+    rescue StandardError => e
+      puts "Rescued: #{e.inspect}"
+      return "error"
     end
   end
 
-  def wait(time)
-    if(time.is_a?Integer)
-      sleep(time)
-    else
-      return "enter a number"
+  def wait(type, timeout, element = nil)
+    case type
+    when :implicit
+      @driver.manage.timeouts.implicit_wait = timeout
+    when :explicit
+      if(element==nil)
+        wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+        wait.until { sleep(timeout) }
+      else
+        wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+        wait.until { element.isdisplayed? }
+      end
     end
   end
 
@@ -70,7 +78,7 @@ class Web_framework
   end
 
   def select_item_from_dopdown(dropdown,index)
-    option = dropdown.find_elements(:tag_name,"option")[index]
+    option = Selenium::WebDriver::Support::Select.new(dropdown).options[index]
     option.click
     return option
   end
@@ -79,7 +87,9 @@ class Web_framework
     @driver.switch_to.window(@driver.window_handles[index])
   end
 
-  def check_dropdown_options(dropdown,text)
+  def check_if_option_exists(dropdown,text)
+    # i can't refactor the below code since if the first iteration fails it won't go to the next iteration
+    # that is why i have not used the else statement
     for option in dropdown.find_elements(:tag_name,'option')
       if option.text.downcase.include? text
         return true
@@ -99,9 +109,5 @@ class Web_framework
   def scroll_down
     @driver.execute_script "window.scrollTo(0, document.body.scrollHeight)"
   end
-
-
-
-
 end
 
