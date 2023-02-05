@@ -1,8 +1,8 @@
 from flask import Flask,Response,request
-from p1.p1 import validate_email
-from p2.p2 import validate_password
-from p3.p3 import validate_input
-from p4.p4 import Crud
+from exercise1.p1 import validate_email
+from exercise2.p2 import validate_password
+from exercise3.p3 import validate_input
+from exercise4.p4 import Crud
 import json
 
 app = Flask(__name__)
