@@ -6,6 +6,11 @@ from exercise4.p4 import Crud
 import json
 
 app = Flask(__name__)
+@app.route('/', methods=['GET'])
+def home():
+    return "welcome"
+
+
 @app.route('/validate/email', methods=['GET'])
 def email_validation():
     content_type = request.headers.get('Content-Type')
@@ -71,4 +76,4 @@ def save_to_csv():
     return Crud.save_to_csv()
 
 if __name__ == '__main__':
-    app.run(debug=True,host = '0.0.0.0',port = 4000)
+    app.run(debug=True,host = '127.0.0.1',port = 4000)

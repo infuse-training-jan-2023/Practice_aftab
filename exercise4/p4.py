@@ -13,9 +13,9 @@ class Crud:
             status = data['status']
             conn = Crud.connect_db()
             cursor = conn.cursor()
-            cursor.execute('insert into todo (name, reminder, status) values (?,?,?)', (name,reminder,status))
+            result = cursor.execute('insert into todo (name, reminder, status) values (?,?,?)', (name,reminder,status))
             conn.commit()
-            return "item added successfully"
+            return {'result':'item added successfully'}
         except Exception as e:
             return e
     def delete_item(self,id):
@@ -24,7 +24,7 @@ class Crud:
             cursor = conn.cursor()
             result = cursor.execute('DELETE FROM todo WHERE id=?',(id,))
             conn.commit()
-            return 'item deleted successfully'
+            return {'result':'item deleted successfully'}
         except Exception as e:
             return e
     def update_item(self,id,data):
@@ -34,7 +34,7 @@ class Crud:
         for key in keys:
             cursor.execute('update todo set {}=? where id = ?'.format(key),(data[key],id))
         conn.commit()
-        return 'item updated successfully'
+        return {'result':'item updated successfully'}
     def register_user(self,data):
         name = data['name']
         phone_number = data['phone_number']
@@ -42,14 +42,14 @@ class Crud:
         cursor = conn.cursor()
         result = cursor.execute('insert into user(name,phone_number) values(?,?)',(name,phone_number))
         conn.commit()
-        return "user added successfully"
+        return {'result':'user added successfully'}
     def save_to_csv(self):
         conn = Crud.connect_db()
         cursor = conn.cursor()
         result = cursor.execute('select * from todo')
         save_to_csv(result)
         conn.commit()
-        return "saved to csv"
+        return {'result':'records added to csv file successfully'}
 
 
 
