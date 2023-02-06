@@ -1,7 +1,8 @@
 require_relative './web_framework.rb'
 class Login
   def initialize(url)
-    @driver = Web_framework.new
+    my_driver = Driver.new.get_driver()
+    @driver = Web_framework.new(my_driver)
     @driver.get_webpage(url)
     @login_status = nil
   end

@@ -18,5 +18,5 @@ rm -rf /var/lib/apt/lists/*
 ENV driver='/usr/local/bin/chromedriver'
 FROM base as test
 CMD ruby ./testing/testing.rb
-FROM base as we_automation
+FROM base as web_automation
 CMD ruby ./modules/test.rb

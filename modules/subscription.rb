@@ -2,7 +2,8 @@ require_relative './web_framework.rb'
 
 class Subscription
   def initialize()
-    @driver = Web_framework.new
+    my_driver = Driver.new.get_driver()
+    @driver = Web_framework.new(my_driver)
   end
   def subscribe(url,email)
     @driver.get_webpage(url)
