@@ -8,9 +8,9 @@ pipeline {
         stage('fetch_data') {
             steps {
                 script {
-                    def fetch = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
-                    fetch.requestMethod = "GET"
-                    def array = fetch.getInputStream().getText()
+                    def fetch_data = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
+                    fetch_data.requestMethod = "GET"
+                    def array = fetch_data.getInputStream().getText()
                     def data_in_json = new JsonSlurperClassic().parseText(array)
                     for(element in data_in_json){
                        if(element.completed == false){
