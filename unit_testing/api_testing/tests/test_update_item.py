@@ -15,7 +15,6 @@ def check_item_updated():
 @then('the item should be updated')
 def check_answer_returned():
     response = pytest.api_response.json()
-    print(response)
     assert response.get("result")
 
 @then('the api status code should be 200')

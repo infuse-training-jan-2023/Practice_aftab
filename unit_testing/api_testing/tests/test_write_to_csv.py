@@ -1,6 +1,6 @@
 import pytest
 from pytest_bdd import scenarios, when, then
-import requests
+import requests import save_to_csv
 scenarios('../features/save_to_csv.feature')
 
 url = "http://127.0.0.1:4000/item/csv"
@@ -12,7 +12,6 @@ def check_user_registered():
 @then('the csv file should contain the reasult')
 def check_answer_returned():
     response = pytest.api_response.json()
-    print(response)
     assert response.get("result")
 
 @then('the api status code should be 200')

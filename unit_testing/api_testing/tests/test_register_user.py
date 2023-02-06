@@ -14,7 +14,6 @@ def check_user_registered():
 @then('the user should be added')
 def check_answer_returned():
     response = pytest.api_response.json()
-    print(response)
     assert response.get("result")
 
 @then('the api status code should be 200')

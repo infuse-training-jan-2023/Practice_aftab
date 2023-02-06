@@ -2,7 +2,7 @@ import requests
 def validate_input(data):
     input = data['input']
     if(input>=1 and input<=200):
-        url = "https://jsonplaceholder.typicode.com/todos/"+str(input)
+        url = "https://jsonplaceholder.typicode.com/todos/{}".format(str(input))
         response = requests.get(url)
         return response.json()
     else:
