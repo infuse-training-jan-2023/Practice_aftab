@@ -1,14 +1,14 @@
-from p4 import Count_subarrays
+from p4 import CountSubarrays
 import p4
 from data import data
 
-class Test_sub_arrays:
+class TestSubArrays:
     def test_sub_arrays_equals(self):
         k= -93
-        assert Count_subarrays().count_subarrays(data,k)==1023
+        assert CountSubarrays().count_subarrays(data,k)==1023
     def test_sub_arrays_wrong_input(self):
-        assert Count_subarrays().count_subarrays(data,'k')=="wrong input"
+        assert isinstance(CountSubarrays().count_subarrays(data,'k'),Exception)
     def test_sub_arrays_check_instance(self):
-        obj = Count_subarrays()
-        assert isinstance(obj,p4.Count_subarrays)
+        obj = CountSubarrays()
+        assert isinstance(obj,CountSubarrays)
 

@@ -1,7 +1,9 @@
-# expression = "002-10.00-00.00"
-class Extract_expression:
+expression = "002-10.00-00.00"
+class ExtractExpression:
+
     def __init__(self,exp):
         self.exp = exp
+
     def extract(self):
         try:
             arr = self.exp.split('-')
@@ -9,7 +11,7 @@ class Extract_expression:
             average = total/2
             result = arr[0]+"-"+str("%.2f" % average )
             return result
-        except:
-            return "cannot take average of not a number"
-# test = Extract_expression(expression)
-# print(test.extract())
+        except Exception as e:
+            return e
+test = ExtractExpression(4)
+print(test.extract())

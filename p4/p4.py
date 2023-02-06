@@ -1,6 +1,6 @@
 
 
-class Count_subarrays:
+class CountSubarrays:
     def __init__(self):
         pass
 
@@ -19,7 +19,7 @@ class Count_subarrays:
                 else:
                     sum_dic[current_sum] = 1
             return count
-        except TypeError:
-            return "wrong input"
+        except Exception as e:
+            return e
 
 # print(count_subarrays(data,-93))
