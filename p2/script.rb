@@ -1,7 +1,13 @@
-require 'json'
+require 'faker'
 
-data = '{"name":"aftab","age": "22"}'
-puts "What is your lastname?"
-a = " "+gets.chomp
-d = JSON.parse(data)
-puts "your name is "+d["name"]+a+" you are " +d["age"]+ " years of age"
+puts 'enter your name'
+name = gets.chomp
+
+country = ENV['country']
+person = {
+  name: name,
+  country: country,
+  address: Faker::Address.full_address,
+  phone_number: Faker::PhoneNumber.phone_number
+}
+puts person
