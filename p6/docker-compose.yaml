@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  backend:
+    build : ./backend
+    ports:
+      ["3000:8080"]
+    volumes:
+      ["/home/anis/Desktop/docker/p6/backend/:/app/src/"]
+  frontend:
+    build : ./frontend
+    ports:
+      ["3001:80"]
+    volumes:
+      ["/home/anis/Desktop/docker/p6/frontend/my-app:/app/src/my-app"]
