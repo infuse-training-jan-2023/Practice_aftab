@@ -1,0 +1,347 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-transform: capitalize;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 20% auto;
+}
+
+aside {
+  display: flex;
+  box-shadow: 0 10px 8px 10px rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  text-align: center;
+  background-color: #f1f1f1;
+  flex-direction: column;
+  border-right: 1px solid rgb(205, 205, 205);
+  width: fit-content;
+
+
+}
+
+.um-logo {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgb(205, 205, 205);
+  width: 100%;
+}
+
+.um-user-email {
+  font-size: 20px;
+}
+.um-user-name{
+  font-size: 20px;
+  color: #276ea1;
+}
+.account-info-contaner{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  justify-content: space-around;
+}
+.um-user{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+}
+.bi{
+  color: #56A9C7;
+}
+ul li {
+  font-size: 30px;
+}
+.test-data > span:first-child {
+  color: white;
+  background-color: black;
+  padding: 4px;
+
+}
+nav {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-left: -40px;
+  padding-inline-start: 0px;
+}
+nav .um-navitems__main{
+  margin-top: 10px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 10px;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid black;
+}
+nav .um-navitems__secondary{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  list-style-type: none;
+  justify-content: space-between;
+}
+nav ul li {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  column-gap: 10px;
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+
+}
+nav ul li i {
+  margin-left: 10px;
+}
+nav ul li:hover{
+  background-color: #cbd9de;
+
+}
+.um-navitems__main~li{
+  border-left: 5px solid black;
+}
+.um-user img {
+  width: 40px;
+}
+
+.test-designer {
+  width: 50%;
+  height: 200px;
+}
+/* testing properties section */
+.test_name_info{
+  display: flex;
+  background-color: #2E576E;
+  width: 100%;
+  flex-direction: row;
+  height: 30px;
+  column-gap: 10px;
+  align-items: center;
+}
+.test_name_info>*{
+  /* margin-left: 10px; */
+  font-size: 20px;
+  color: white
+}
+.test-text{
+  background-color: black;
+  padding-left: 10px;
+  padding-top: 7px;
+  align-items: center;
+  padding-right: 10px;
+}
+.um-test-name{
+  font-size: 20px;
+}
+.test-data .bi-pencil-square,.bi-x{
+  color: white;
+}
+li .bi-pencil-square{
+  font-size: 20px;
+  color: #56A9C7;
+}
+
+main{
+  width: 100%;
+}
+
+/* test properties */
+.test-properties{
+  background-color: white;
+}
+.test-properties span{
+  display: inline-flex;
+  background-color: #478BA3;
+  color: white;
+  width: 100%;
+  font-size: 20px;
+}
+
+
+/* form properties */
+.form-properties{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+.details {
+  width: -webkit-fill-available;
+}
+.details label{
+  margin-left:3px;
+  margin-top: 50px;
+  margin-right: 10px;
+
+
+}
+.details select{
+  margin-right: 20px;
+  color: #2a5394;
+  border: none;
+}
+
+#text_area{
+  background-color: rgb(236, 233, 233);
+
+  width: 700px;
+}
+form div label{
+  font-size: 20px;
+  font-weight: bold;
+  color: #2a5394;
+}
+.description{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-bottom: 4px;
+}
+.description textarea{
+  background-color: rgb(238, 233, 233);
+  width: 97%;
+}
+.description label{
+  margin-right: 10px;
+  overflow: visible;
+}
+
+
+/* flowchar */
+
+.test-flowchart{
+  width: fit-content;
+  flex-grow: 4 !important;
+  border-right: 1px solid black;
+    margin-right: 10px;
+    height: 100%;
+}
+.test-flowchart span{
+  background-color: #509EBA;
+  /* width: 800px; */
+  width: 100%;
+  display: inline-flex;
+  justify-content: left;
+  height: 20px;
+  color:white;
+  font-size: 20px;
+}
+
+.test-main{
+  display: flex;
+  grid-auto-flow: column;
+  background-color: rgb(244, 242, 242);
+  height: fit-content;
+  display: flex;
+  height: 100%;
+  /* justify-content: space-between; */
+
+}
+.test-data{
+  flex-grow: 0;
+  padding: 0px;
+  height: 100%;
+  background-color: black ;
+}
+.options{
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  text-align: left;
+}
+div.bi{
+  color : white;
+}
+.options>i{
+  color: gray;
+}
+
+/* test area */
+.test-data{
+  background-color: rgb(7, 99, 161);
+}
+
+.test{
+  margin-left: 15px;
+  box-shadow: 0 10px 8px 15px rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  background-color: #f1f1f1;
+  height: 98vh;
+}
+.test-variables{
+  height: 37%;
+  width: 400px;
+  border: 1px solid rgb(7, 99, 161);
+  background-color: white;
+}
+.test-variables>span,.test-parameters>span {
+  color: white;
+  display: block;
+  /* width: max-content; */
+  background-color: #276ea1;
+}
+.test-parameters{
+  height: 50%;
+  width: 400px;
+  border: 1px solid rgb(7, 99, 161);
+  background-color: white;
+
+}
+.variable_text{
+  color:white;
+  font-size: 20px;
+  display: inline-block;
+  width: 100%;
+  background-color: #276ea1;
+}
+.parameter_text{
+  color:white;
+  font-size: 20px;
+  display: inline-block;
+  width: 100%;
+  background-color: #276ea1;
+}
+.bi-plus{
+  padding-left:95%;
+  color: black;
+}
+.bi-plus:before{
+  font-weight: bold;
+  font-size: 30px;
+
+}
+.bi-x{
+  position: absolute;
+  right: 0px;
+
+}
+
+.table-header{
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid #276ea1;
+}
+.table-header-variables{
+  display: flex;
+  margin-left: 20px;
+  justify-content: space-evenly;
+  margin-left: -100px;
+  border-bottom: 1px solid #276ea1;
+  overflow: hidden;
+}
+.table-header span{
+  font-weight: bold;
+  color: #276ea1
+}
+
+.table-header-variables span{
+  font-weight: bold;
+  color:#276ea1;
+}
+span{
+  font-weight: bold;
+  font-size: 20px;
+}

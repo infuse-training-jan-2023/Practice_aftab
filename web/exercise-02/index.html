@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>useMango &trade; Card</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+        <p id = "hour">
+            hour:
+        </p>
+        <p id = "minute">
+            minute:
+        </p>
+        <p id = "second">
+            second:
+        </p>
+    </div>
+    <script>
+        const hour_element = document.getElementById("hour")
+        const minute_element = document.getElementById("minute")
+        const second_element = document.getElementById("second")
+        setInterval(()=>{
+            hour = new Date().getHours()
+            new_hour = hour<10?"0"+String(hour):String(hour)
+            minute = new Date().getMinutes()
+            new_minute = minute<10?"0"+String(minute):String(minute)
+            second = new Date().getSeconds()
+            new_second = second<10?"0"+String(second):String(second)
+            hour_element.innerHTML = new_hour+":"
+            minute_element.innerHTML = new_minute+":"
+            second_element.innerHTML = new_second
+        },700)
+
+    </script>
+  </body>
+</html>
