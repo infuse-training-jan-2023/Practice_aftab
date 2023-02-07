@@ -3,7 +3,7 @@ pipeline {
         label 'slave1'
     }
     stages {
-        stage('build') {
+        stage('test') {
             steps {
                 bat 'ruby unit_testing.rb'
             }
