@@ -9,7 +9,7 @@ class Scrollbar
       driver.switch_to.frame(iframe)
       slider = driver.find_element(:tag_name,'span')
       driver.action.key_down(:control).perform
-      driver.action.drag_and_drop_by(slider, 500,0).perform
+      slider.send_keys(:right)
       sleep(2)
       driver.quit()
     end

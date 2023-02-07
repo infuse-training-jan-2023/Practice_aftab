@@ -3,9 +3,9 @@ class Select_item
   def select_ith_item(url,index)
     driver = Driver.new.get_driver
     driver.get(url)
-
     drop_down = driver.find_element(:tag_name,'select')
-    puts Selenium::WebDriver::Support::Select.new(drop_down).options[index].text
+    select_element = Selenium::WebDriver::Support::Select.new(drop_down)
+    puts select_element.options[index].text
     sleep(3)
   end
 end
