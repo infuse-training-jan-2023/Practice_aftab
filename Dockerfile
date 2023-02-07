@@ -4,12 +4,12 @@ RUN gem install selenium-webdriver
 WORKDIR .
 COPY . .
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
-mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+mkdir -p /opt/chromedriver && \
 curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
-unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver && \
 rm /tmp/chromedriver_linux64.zip && \
-chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver && \
-ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
+chmod +x /opt/chromedriver/chromedriver && \
+ln -fs /opt/chromedriver/chromedriver /usr/local/bin/chromedriver
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
 echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
 apt-get -yqq update && \
