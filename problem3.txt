@@ -16,3 +16,6 @@ pipeline {
         }
     }
 }
+
+cron job 
+H H * * 1-5
