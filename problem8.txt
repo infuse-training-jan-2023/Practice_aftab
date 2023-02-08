@@ -1,0 +1,24 @@
+import groovy.json.JsonSlurperClassic
+pipeline {
+     agent {
+        label 'slave1'
+    }
+    
+    stages {
+        stage('fetch_data') {
+            steps {
+                script {
+                    def fetch_data = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
+                    fetch_data.requestMethod = "GET"
+                    def todos = fetch_data.getInputStream().getText()
+                    def todo_json = new JsonSlurperClassic().parseText(todos)
+                    for(todo in todo_json){
+                       if(todo.completed == false){
+                            println(todo);
+                       } 
+                    }
+                }
+            }
+        }
+    }
+}

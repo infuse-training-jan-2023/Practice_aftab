@@ -1,0 +1,21 @@
+pipeline {
+     agent {
+        label 'slave1'
+    }
+
+    stages {
+        stage('build') {
+            steps {
+                echo '${env.STAGE_NAME}'
+            }
+        }
+        stage('test') {
+            steps {
+                echo '${env.STAGE_NAME}'
+            }
+        }
+    }
+}
+
+cron job 
+H H * * 1-5
