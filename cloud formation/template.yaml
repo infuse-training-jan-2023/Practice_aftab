@@ -1,0 +1,149 @@
+
+Parameters:
+  ApiStagename:
+    Type: String
+    Default: develop
+
+Resources:
+  S3Bucket:
+    DeletionPolicy: Retain
+    Type: 'AWS::S3::Bucket'
+    Description: Creating Amazon S3 bucket from CloudFormation
+    Properties:
+      BucketName: bucket789987
+      AccessControl: PublicReadWrite
+  SampleBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+            - Action:
+                - 's3:PutObject'
+              Effect: Allow
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref S3Bucket
+                  - /*
+              Principal: '*'
+              Condition:
+                StringLike:
+                  'aws:Referer':
+                    - 'http://www.example.com/*'
+                    - 'http://example.net/*'
+
+  permission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref writeLogsToS3
+      Action: "lambda:InvokeFunction"
+      Principal: apigateway.amazonaws.com
+
+
+
+
+#  api
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      ApiKeySourceType: HEADER
+      Description: An API Gateway with a Lambda Integration
+      EndpointConfiguration:
+        Types:
+          - EDGE
+      Name: rest-api
+
+  ApiGatewayResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      ParentId: !GetAtt
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: 'lambda'
+
+  ApiGatewayIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ''
+            Effect: 'Allow'
+            Principal:
+              Service:
+                - 'apigateway.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: LambdaAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 'lambda:*'
+                Resource: !GetAtt writeLogsToS3.Arn
+
+
+
+# lambda
+  ApiGatewayMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      ResourceId: !Ref ApiGatewayResource
+      HttpMethod: ANY
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub >-
+          arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${writeLogsToS3.Arn}/invocations
+
+  writeLogsToS3:
+    Type: AWS::Lambda::Function
+    Description: when invoked writes the current time stamp to s3 bucket
+    Properties:
+      FunctionName: lambda_handler
+      Role: !Sub arn:aws:iam::846059491008:role/lambda-test-role
+      Runtime: python3.7
+      Handler: index.lambda_handler
+      Code:
+        ZipFile: |
+          import json
+          from datetime import datetime
+          import boto3
+          def lambda_handler(event, context):
+              dt = datetime.now()
+              ts = datetime.timestamp(dt)
+              encoded_string = str(ts).encode("utf-8")
+              s3 = boto3.resource('s3')
+              # Write the time to an S3 object
+              bucket_name = 'bucket789987'
+              key = str(ts)
+              s3.Bucket(bucket_name).put_object(Key=key, Body=encoded_string)
+
+              # Return a success message
+              return {
+                  'statusCode': 200,
+                  'body': 'Current time saved to S3'
+              }
+
+
+  APIGatewayDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+      StageName: !Ref ApiStagename
+    DependsOn:
+      - ApiGatewayMethod
+
+Outputs:
+  LambdaFunctionName:
+    Value: !Ref writeLogsToS3
+  EndPointURL:
+    Value: !Sub "https://${ApiGatewayRestApi}.excute-api.${AWS::Region}.amazonaws.com/${ApiStagename}"
+
