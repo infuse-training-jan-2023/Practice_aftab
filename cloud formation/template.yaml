@@ -1,0 +1,133 @@
+
+Parameters:
+  ApiStagename:
+    Type: String
+    Default: develop
+Resources:
+  S3Bucket:
+    DeletionPolicy: Retain
+    Type: 'AWS::S3::Bucket'
+    Description: Creating Amazon S3 bucket from CloudFormation
+    Properties:
+      BucketName: logsbucket
+      AccessControl: PublicReadWrite
+  SampleBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+            - Action:
+                - 's3:PutObject'
+              Effect: Allow
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref S3Bucket
+                  - /*
+              Principal: '*'
+  Api:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      ApiKeySourceType: HEADER
+      Description: An API Gateway with a Lambda Integration
+      EndpointConfiguration:
+        Types:
+          - EDGE
+      Name: rest-api
+  ApiGatewayResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref Api
+      ParentId: !GetAtt
+        - Api
+        - RootResourceId
+      PathPart: 'lambda'
+  ApiGatewayIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ''
+            Effect: 'Allow'
+            Principal:
+              Service:
+                - 'apigateway.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: LambdaAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 'lambda:*'
+                Resource: !GetAtt writeLogsToS3.Arn
+  ApiGatewayMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref Api
+      ResourceId: !Ref ApiGatewayResource
+      HttpMethod: ANY
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub >-
+          arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${writeLogsToS3.Arn}/invocations
+  lambda-test:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: root
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaFunctionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - lamda:InvokeFunction
+                Resource: "*"
+  writeLogsToS3:
+    Type: AWS::Lambda::Function
+    Description: when invoked writes the current time stamp to s3 bucket
+    Properties:
+      FunctionName: lambda_handler
+      Role: !Sub arn:aws:iam::846059491008:role/${lambda-test}-role
+      Runtime: python3.7
+      Handler: index.lambda_handler
+      CodeUri: lambdaFunction.py
+
+  AccessControl:
+    Type: AWS::Lambda::AccessControl
+    Properties:
+      FunctionName: !Ref writeLogsToS3
+      Action: "lambda:InvokeFunction"
+      Principal: apigateway.amazonaws.com
+  APIGatewayDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId: !Ref Api
+      StageName: !Ref ApiStagename
+    DependsOn:
+      - ApiGatewayMethod
+Outputs:
+  LambdaFunctionName:
+    Value: !Ref writeLogsToS3
+  EndPointURL:
+    Value: !Sub "https://${Api}.excute-api.${AWS::Region}.amazonaws.com/${ApiStagename}"
+
